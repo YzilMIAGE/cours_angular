@@ -8,11 +8,10 @@ import { Assignments } from './assignments.model';
 })
 export class AssignmentsComponent implements OnInit {
   titre = "Mon Application sur les Assignments";
-
+  assignmentPicked:Assignments = new Assignments();
   ajoutActive = false;
-  
-  dateRendu:Date = new Date();
-  nomDevoir:string = "";
+  isFormVisible = false;
+
 
   assignments = [{
     nom: "TP de Java",
@@ -36,13 +35,20 @@ export class AssignmentsComponent implements OnInit {
     }, 2000);
   }
 
-  onSubmit() {
-    const newAssignment = new Assignments();
-    newAssignment.nom= this.nomDevoir;
-    newAssignment.dateRendu = this.dateRendu;
-    newAssignment.rendu = false;
-
-    this.assignments.push(newAssignment)
+  assignmentClick(iAssignment:Assignments) {
+    this.assignmentPicked = iAssignment;
   }
 
+  onAddAssignmentBtnClick() {
+    this.isFormVisible = true;
+  }
+
+  onNewAssigment(iEvent:Assignments) {
+    this.assignments.push(iEvent);
+    this.isFormVisible = false;
+  }
+
+  onDeleteAssignment(iEvent:Assignments) {
+    this.assignments = this.assignments.filter(aAssignment => aAssignment.nom !== iEvent.nom);
+  }
 }

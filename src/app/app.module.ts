@@ -13,15 +13,22 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox'
 
 import { RenduDirective } from './shared/rendu.directive';
-import { FormsModule } from '@angular/forms';
+import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
+import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AssignmentsComponent,
     RenduDirective,
+    AddAssignmentComponent,
+    AssignmentDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,8 +43,11 @@ import { FormsModule } from '@angular/forms';
     MatNativeDateModule,
     MatToolbarModule,
     MatSidenavModule,
+    MatListModule,
+    MatCardModule,
+    MatCheckboxModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
