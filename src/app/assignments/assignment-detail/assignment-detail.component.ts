@@ -1,30 +1,36 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { Assignments } from '../../assignments/assignments.model';
+import { AssignmentsService } from '../../shared/assignments.service';
 
 @Component({
   selector: 'app-assignment-detail',
   templateUrl: './assignment-detail.component.html',
-  styleUrls: ['./assignment-detail.component.css']
+  styleUrls: ['./assignment-detail.component.css'],
 })
 export class AssignmentDetailComponent implements OnInit {
-  @Input() assignmentTransmitted:Assignments = new Assignments();
-  @Output() deleteAssignment = new EventEmitter<Assignments>();
+  @Input() assignmentTransmitted: any = undefined;
 
-  constructor() { }
+  constructor(private iAssignmentsService: AssignmentsService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onAssignmentSent() {
-    this.assignmentTransmitted.rendu = true;
+    // this.assignmentTransmitted.rendu = true;
+
+    this.iAssignmentsService
+      .updateAssignment(this.assignmentTransmitted)
+      .subscribe((aResponse) => {
+        console.log(aResponse);
+      });
   }
 
   onDeleteAssignmentBtnClick() {
-    const aAssignmentToDelete = new Assignments();
-    aAssignmentToDelete.nom= this.assignmentTransmitted.nom;
-    aAssignmentToDelete.dateRendu = this.assignmentTransmitted.dateRendu;
-    aAssignmentToDelete.rendu = this.assignmentTransmitted.rendu;
-    this.deleteAssignment.emit(aAssignmentToDelete);
-    this.assignmentTransmitted = new Assignments();
+    this.iAssignmentsService
+      .deleteAssignment(this.assignmentTransmitted)
+      .subscribe((aResponse) => {
+        console.log(aResponse);
+      });
+
+    this.assignmentTransmitted = undefined;
   }
 }

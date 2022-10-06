@@ -1,41 +1,29 @@
 import { Component, OnInit } from '@angular/core';
+import { AssignmentsService } from '../shared/assignments.service';
 import { Assignments } from './assignments.model';
 
 @Component({
   selector: 'app-assignments',
   templateUrl: './assignments.component.html',
-  styleUrls: ['./assignments.component.css']
+  styleUrls: ['./assignments.component.css'],
 })
 export class AssignmentsComponent implements OnInit {
-  titre = "Mon Application sur les Assignments";
-  assignmentPicked:Assignments = new Assignments();
-  ajoutActive = false;
+  titre = 'Mon Application sur les Assignments';
+  assignmentPicked: any = undefined;
   isFormVisible = false;
+  assignments!: Assignments[];
 
-
-  assignments = [{
-    nom: "TP de Java",
-    dateRendu: new Date('2022-10-10'),
-    rendu: true
-  }, {
-    nom: "TP de React",
-    dateRendu: new Date('2022-09-10'),
-    rendu: false
-  }, {
-    nom: "TP d'Angular",
-    dateRendu: new Date('2022-08-10'),
-    rendu: true
-  }]
-
-  constructor() { }
+  constructor(private iAssignmentsService: AssignmentsService) {}
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.ajoutActive = true;
-    }, 2000);
+    this.iAssignmentsService
+      .getAssignments()
+      .subscribe((aObservableAssignments) => {
+        this.assignments = aObservableAssignments;
+      });
   }
 
-  assignmentClick(iAssignment:Assignments) {
+  assignmentClick(iAssignment: Assignments) {
     this.assignmentPicked = iAssignment;
   }
 
@@ -43,12 +31,10 @@ export class AssignmentsComponent implements OnInit {
     this.isFormVisible = true;
   }
 
-  onNewAssigment(iEvent:Assignments) {
-    this.assignments.push(iEvent);
+  onNewAssigment(iEvent: Assignments) {
+    this.iAssignmentsService.addAssignment(iEvent).subscribe((aResponse) => {
+      console.log(aResponse);
+    });
     this.isFormVisible = false;
-  }
-
-  onDeleteAssignment(iEvent:Assignments) {
-    this.assignments = this.assignments.filter(aAssignment => aAssignment.nom !== iEvent.nom);
   }
 }
