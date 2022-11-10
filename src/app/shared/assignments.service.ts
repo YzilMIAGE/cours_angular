@@ -33,7 +33,7 @@ export class AssignmentsService {
   //     rendu: true,
   //   },
   // ];
-  uri = 'http://localhost:8010/api/assignments';
+  uri = 'https://api-cours-angular.herokuapp.com/api/assignments';
   constructor(
     private iLoggingService: LoggingService,
     private http: HttpClient
