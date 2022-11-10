@@ -16,11 +16,29 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
-import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { AuthGuard } from './shared/auth.guard';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { RenduDirective } from './shared/rendu.directive';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
+import { RouterModule, Routes } from '@angular/router';
+import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
+import { HttpClientModule } from '@angular/common/http';
+
+const routes: Routes = [
+  { path: '', component: AssignmentsComponent },
+  { path: 'home', component: AssignmentsComponent },
+  { path: 'add', component: AddAssignmentComponent },
+  { path: 'assignment/:id', component: AssignmentDetailComponent },
+  {
+    path: 'assignment/:id/edit',
+    component: EditAssignmentComponent,
+    canActivate: [AuthGuard],
+  },
+];
 
 @NgModule({
   declarations: [
@@ -29,6 +47,7 @@ import { AssignmentDetailComponent } from './assignments/assignment-detail/assig
     RenduDirective,
     AddAssignmentComponent,
     AssignmentDetailComponent,
+    EditAssignmentComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,10 +61,14 @@ import { AssignmentDetailComponent } from './assignments/assignment-detail/assig
     MatDatepickerModule,
     MatNativeDateModule,
     MatToolbarModule,
+    HttpClientModule,
     MatSidenavModule,
+    MatPaginatorModule,
     MatListModule,
     MatCardModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSlideToggleModule,
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent],

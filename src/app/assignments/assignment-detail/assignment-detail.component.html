@@ -10,6 +10,14 @@
       >Devoir rendu</mat-checkbox
     >
     <button
+      mat-stroked-button
+      color="primary"
+      (click)="onClickEdit()"
+      [disabled]="!isAdmin()"
+    >
+      Edit
+    </button>
+    <button
       class="deleteButton"
       mat-flat-button
       color="accent"
