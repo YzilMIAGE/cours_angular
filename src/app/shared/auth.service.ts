@@ -20,7 +20,8 @@ export class authUser {
 export class AuthService {
   loggedIn = false;
   admin = false;
-  uri = 'http://localhost:8010/api/users';
+  // uri = 'http://localhost:8010/api/users';
+  uri = 'https://api-cours-angular.herokuapp.com/api/users';
 
   constructor(private http: HttpClient) {}
 

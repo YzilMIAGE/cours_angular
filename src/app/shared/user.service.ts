@@ -14,7 +14,8 @@ export class User {
   providedIn: 'root',
 })
 export class UserService {
-  uri = 'http://localhost:8010/api/users';
+//   uri = 'http://localhost:8010/api/users';
+  uri = 'https://api-cours-angular.herokuapp.com/api/users';
   constructor(private http: HttpClient) {}
 
   getUser(id: string | null): Observable<User> {
