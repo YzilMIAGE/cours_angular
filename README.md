@@ -8,9 +8,15 @@ http://miageprojet2.unice.fr/Intranet_de_Michel_Buffa/M1_MIAGE_2021-2022_-_Techn
 
 Ouvrir un terminal
 Executer
-`git clone https://github.com/YzilMIAGE/cours_angular.git`
-`cd cours_angular`
-`npm i` ou `npm install`
+`git clone https://github.com/YzilMIAGE/cours_angular.git` 
+
+
+`cd cours_angular` 
+
+
+`npm i` ou `npm install` 
+
+
 `ng serve --open`
 
 ## Explication du projet
