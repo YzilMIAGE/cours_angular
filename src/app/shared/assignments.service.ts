@@ -14,7 +14,7 @@ import { PageEvent } from '@angular/material/paginator';
 export class AssignmentsService {
   assignments: Assignments[] = [];
   // uri = 'http://localhost:8010/api/assignments';
-  uri = 'https://api-cours-angular.herokuapp.com/api/assignments';
+  uri = 'https://angular-back-rendu.herokuapp.com/api/assignments';
   constructor(private http: HttpClient) {}
 
   getAssignments(

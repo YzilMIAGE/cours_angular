@@ -13,7 +13,7 @@ export class Subject {
 })
 export class SubjectsService {
   // uri = 'http://localhost:8010/api/subjects';
-  uri = 'https://api-cours-angular.herokuapp.com/api/subjects';
+  uri = 'https://angular-back-rendu.herokuapp.com/api/subjects';
 
   constructor(private http: HttpClient) {}
 
