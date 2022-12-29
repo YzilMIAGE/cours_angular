@@ -1,0 +1,71 @@
+<div class="assignmentCard">
+  <div class="assignmentContent">
+    <div>
+      <p>
+        <strong>Nom du devoir - </strong>
+        {{ data.nom }}
+      </p>
+    </div>
+    <div>
+      <p>
+        <strong>Elève concerné - </strong>
+        {{ data.auteur }}
+      </p>
+    </div>
+    <div>
+      <p>
+        <strong>Date de rendu du devoir - </strong
+        >{{ data.dateDeRendu.toLocaleDateString("fr") }}
+      </p>
+    </div>
+    <div *ngIf="this.nomMatiere && this.prof">
+      <div>
+        <p><strong>Matiere - </strong>{{ this.nomMatiere }}</p>
+      </div>
+      <div>
+        <p>
+          <strong>Professeur - </strong> M. ou Mme.
+          {{ this.prof.split(".")[0] }}
+        </p>
+      </div>
+      <div>
+        <img
+          style="display: block; margin: 10px auto; border-radius: 20px"
+          src="../../../assets/prof/{{ this.prof }}"
+          width="150"
+        />
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; justify-content: center">
+      <strong>Etat de rendu -</strong>
+      <mat-icon appRendu *ngIf="data.rendu" style="margin-left: 5px"
+        >check_circle</mat-icon
+      >
+      <mat-icon appNonRendu *ngIf="!data.rendu" style="margin-left: 5px"
+        >cancel</mat-icon
+      >
+    </div>
+    <div *ngIf="data.rendu">
+      <p><strong>Note - </strong>{{ data.note }}/20</p>
+    </div>
+    <div style="max-width: 500px" *ngIf="data.rendu">
+      <p>
+        <strong>Remarques : <br /></strong>
+      </p>
+      <p style="text-align: justify">
+        {{ data.remarques }}
+      </p>
+    </div>
+
+    <div *ngIf="this.isLogged()">
+      <button
+        (click)="modifyAssignment()"
+        mat-flat-button
+        color="primary"
+        style="width: 130px; margin-top: 30px"
+      >
+        Modifier
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="container">
+  <form class="form">
+    <mat-icon
+      style="display: block; margin: auto; margin-bottom: 50px; color: blue"
+      >manage accounts</mat-icon
+    >
+    <div style="display: 'flex'; justify-content: space-around">
+      <mat-form-field
+        appearance="outline"
+        class="field"
+        style="margin-right: 4px"
+      >
+        <mat-label>Nom</mat-label>
+        <input matInput type="text" [formControl]="lastNameFormControl" />
+        <mat-error *ngIf="lastNameFormControl.hasError('required')">
+          Champs requis
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field
+        appearance="outline"
+        class="field"
+        style="margin-left: 4px"
+      >
+        <mat-label>Prénom</mat-label>
+        <input matInput type="text" [formControl]="firstNameFormControl" />
+        <mat-error *ngIf="firstNameFormControl.hasError('required')">
+          Champs requis
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Adresse mail</mat-label>
+      <input
+        type="email"
+        matInput
+        [formControl]="emailFormControl"
+        placeholder="Ex. johndoe@example.com"
+      />
+      <mat-error
+        *ngIf="
+          emailFormControl.hasError('email') &&
+          !emailFormControl.hasError('required')
+        "
+      >
+        Veuillez entrer une adresse mail valide
+      </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('required')">
+        Champs requis
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Mot de passe</mat-label>
+      <input
+        matInput
+        [type]="hide ? 'password' : 'text'"
+        [formControl]="passwordFormControl"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+      <mat-error
+        *ngIf="
+          passwordFormControl.hasError('pattern') &&
+          !passwordFormControl.hasError('required')
+        "
+      >
+        Minimum requis : 6 caractères | 1 majuscule | 1 minuscule | 1 chiffre
+      </mat-error>
+      <mat-error *ngIf="passwordFormControl.hasError('required')">
+        Champs requis
+      </mat-error>
+    </mat-form-field>
+    <button
+      mat-flat-button
+      (click)="handleSubmit()"
+      type="submit"
+      color="primary"
+      style="width: 150px; margin: auto; margin-top: 30px"
+    >
+      Inscription
+    </button>
+    <p
+      *ngIf="this.hasError"
+      style="font-size: 14px; color: red; text-align: center"
+    >
+      {{ this.errorText }}
+    </p>
+  </form>
+</div>

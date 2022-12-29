@@ -1,9 +1,12 @@
 export class Assignments {
   _id!: string;
-  id!: number;
   nom!: string;
-  dateRendu!: Date;
+  dateDeRendu!: Date;
   rendu!: boolean;
+  auteur!: string;
+  remarques!: string;
+  subjectId!: string;
+  note!: number;
 }
 
 export class AssignmentsPaginate {

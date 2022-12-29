@@ -1,40 +1,26 @@
 <mat-toolbar>
-  <a routerLink="/home">
-    <button mat-button color="primary">
-      <mat-icon>home</mat-icon> Accueil
-    </button>
+  <a routerLink="/">
+    <img src="../assets/logo_miage.png" width="180" />
   </a>
   <span class="spacer"></span>
-  <!-- <button mat-button color="primary">
-    <mat-icon>login</mat-icon> Connexion
-  </button> -->
-  <mat-slide-toggle color="primary" (change)="login()">Login</mat-slide-toggle>
+  <div *ngIf="!isLogged()" style="display: flex">
+    <a routerLink="/login">
+      <button mat-flat-button color="primary">
+        <mat-icon style="margin-right: 10px">login</mat-icon>Connexion
+      </button>
+    </a>
+    <div style="margin-inline: 20px"></div>
+    <a routerLink="/register">
+      <button mat-flat-button color="primary">
+        <mat-icon style="margin-right: 10px">manage accounts</mat-icon
+        >Inscription
+      </button>
+    </a>
+  </div>
+  <div *ngIf="isLogged()">
+    <button mat-flat-button (click)="logout()" color="primary">
+      <mat-icon style="margin-right: 10px">logout</mat-icon>Deconnexion
+    </button>
+  </div>
 </mat-toolbar>
-<mat-sidenav-container>
-  <mat-sidenav [(opened)]="sideNavOpened" mode="side">
-    <button mat-button><mat-icon>assignment</mat-icon>Liste des devoirs</button>
-    <mat-divider></mat-divider>
-    <button mat-button>
-      <mat-icon>library_add</mat-icon>Ajouter un devoir
-    </button>
-    <mat-divider></mat-divider>
-    <button mat-button>
-      <mat-icon>update</mat-icon>Modification d'un devoir
-    </button>
-    <mat-divider></mat-divider>
-    <button mat-button>
-      <mat-icon>delete</mat-icon>Suppresion d'un devoir
-    </button>
-    <mat-divider></mat-divider>
-    <button mat-button>
-      <mat-icon>perm_data_setting</mat-icon>Génération de données de test
-    </button>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <button mat-button (click)="sideNavOpened = !sideNavOpened">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <router-outlet></router-outlet>
-    <!-- <app-assignments></app-assignments> -->
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<router-outlet></router-outlet>

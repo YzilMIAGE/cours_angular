@@ -1,7 +1,16 @@
-.container {
-  margin: 20px;
+.assignmentsContainer {
+  margin-top: 5px;
+  align-items: center;
+  justify-content: center;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.addAssignmentContainer {
+  display: flex;
+  margin-top: 30px;
+  align-items: center;
+  justify-content: center;
 }
 
 .addButton {
@@ -10,6 +19,21 @@
 }
 
 .headContainer {
+  margin-inline: 5%;
   display: flex;
   justify-content: space-between;
+}
+
+.assignmentCard {
+  margin: 10px;
+  width: 320px;
+  height: 200px;
+}
+
+.assignmentCard:hover {
+  cursor: pointer;
+}
+
+.assignmentContent {
+  margin-left: 31px;
 }

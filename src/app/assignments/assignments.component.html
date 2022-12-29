@@ -1,43 +1,85 @@
-<main class="container">
-  <div class="headContainer">
-    <a routerLink="/add">
-      <button class="addButton" mat-flat-button color="accent">
-        Ajouter un devoir
+<main>
+  <div class="addAssignmentContainer" *ngIf="isLogged()">
+    <a routerLink="/add" style="margin: 20px">
+      <button mat-flat-button color="primary">
+        <mat-icon style="margin-right: 10px">library_add</mat-icon>Ajouter un
+        devoir
       </button>
     </a>
+  </div>
+  <div class="headContainer">
+    <div>
+      <div style="display: flex">
+        <mat-form-field
+          appearance="outline"
+          class="field"
+          style="margin: auto 20px auto 20px"
+        >
+          <mat-label>Recherche</mat-label>
+          <input
+            matInput
+            type="text"
+            (input)="handleSearch()"
+            [formControl]="search"
+          />
+        </mat-form-field>
+        <div style="margin: auto 0 auto 0">
+          <mat-label></mat-label>
+          <mat-radio-group
+            aria-label="Rendu"
+            color="primary"
+            (change)="handleRadioChange($event.value)"
+          >
+            <div>
+              <mat-radio-button value="{{ 1 }}" style="margin-right: 20px"
+                >Devoirs rendu</mat-radio-button
+              >
+              <mat-radio-button value="{{ 2 }}" style="margin-right: 20px"
+                >Devoirs non rendus</mat-radio-button
+              >
+              <mat-radio-button value="{{ 3 }}" checked
+                >Sans filtre</mat-radio-button
+              >
+            </div>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
     <mat-paginator
       #paginator
       [length]="totalDocs"
-      [pageSize]="10"
+      [pageSize]="limit"
       aria-label="Select page"
-      (page)="getAssignementsData($event.pageIndex)"
+      (page)="handlePageChange($event.pageIndex)"
     >
     </mat-paginator>
   </div>
-  <mat-divider></mat-divider>
-
-  <mat-list *ngFor="let assignment of assignments">
-    <nav>
-      <a routerLink="/assignment/{{ assignment.id }}">
-        <h3 mat-subheader>{{ assignment.dateRendu | date }}</h3>
-        <mat-list-item (click)="assignmentClick(assignment)">
-          <p appRendu *ngIf="assignment.rendu; else nonsoumis">
-            Devoir intitulé {{ assignment.nom }} a été rendu
-          </p>
+  <div class="assignmentsContainer">
+    <div *ngFor="let assignment of assignments">
+      <mat-card (click)="openDetails(assignment)" class="assignmentCard">
+        <mat-card-title><mat-icon>assignment</mat-icon></mat-card-title>
+        <mat-card-header>{{ assignment.dateDeRendu | date }}</mat-card-header>
+        <mat-card-content class="assignmentContent"
+          ><div appRendu *ngIf="assignment.rendu; else nonsoumis">
+            <mat-icon style="display: block; margin: auto; margin-top: 20px"
+              >check_circle</mat-icon
+            ><br />
+            <p style="text-align: center">
+              Le devoir {{ assignment.nom }} a été rendu
+            </p>
+          </div>
           <ng-template #nonsoumis>
-            Le devoir {{ assignment.nom }} n'a pas été rendu.
-          </ng-template>
-          <mat-divider></mat-divider>
-        </mat-list-item>
-      </a>
-    </nav>
-  </mat-list>
-
-  <!-- <app-assignment-detail
-    [assignmentTransmitted]="assignmentPicked"
-  ></app-assignment-detail> -->
+            <div appNonRendu>
+              <mat-icon style="display: block; margin: auto; margin-top: 20px"
+                >cancel</mat-icon
+              ><br />
+              <p style="text-align: center">
+                Le devoir {{ assignment.nom }} n'a pas été rendu.
+              </p>
+            </div>
+          </ng-template></mat-card-content
+        >
+      </mat-card>
+    </div>
+  </div>
 </main>
-<!-- <app-add-assignment
-  (newAssignment)="onNewAssigment($event)"
-  *ngIf="isFormVisible"
-></app-add-assignment> -->

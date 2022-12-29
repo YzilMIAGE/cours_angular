@@ -1,34 +1,133 @@
-<div class="container" *ngIf="assignment">
-  <h1>Edition de l'assignment {{ assignment.nom }}</h1>
-  <form
-    ngForm
-    class="form"
-    #formUpdate
-    (submit)="onSaveAssignment(); formUpdate.reset()"
-  >
-    <mat-form-field>
-      <input
-        matInput
-        placeholder="Edition du nom"
-        [(ngModel)]="nomAssignment"
-        name="assignment-name"
-      />
+<div class="container" *ngIf="this.isLogged()">
+  <form class="form">
+    <mat-icon
+      style="display: block; margin: auto; margin-bottom: 50px; color: blue"
+      >edit</mat-icon
+    >
+    <div style="display: 'flex'; justify-content: space-around">
+      <mat-form-field
+        appearance="outline"
+        class="field"
+        style="margin-right: 4px"
+      >
+        <mat-label>Nom</mat-label>
+        <input matInput type="text" [formControl]="nom" />
+        <mat-error *ngIf="nom.hasError('required')"> Champs requis </mat-error>
+      </mat-form-field>
+      <mat-form-field
+        appearance="outline"
+        class="field"
+        style="margin-left: 4px"
+      >
+        <mat-label>Date de rendu</mat-label>
+        <input matInput type="date" [formControl]="dateDeRendu" />
+        <mat-error *ngIf="dateDeRendu.hasError('required')">
+          Champs requis
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Auteur</mat-label>
+      <input matInput [formControl]="auteur" />
+      <mat-error *ngIf="auteur.hasError('required')"> Champs requis </mat-error>
     </mat-form-field>
-    <mat-form-field>
-      <input
-        matInput
-        [matDatepicker]="picker"
-        placeholder="Edition de la date"
-        [(ngModel)]="dateRendu"
-        name="date"
-      />
-      <mat-datepicker-toggle matSuffix [for]="picker">
+    <mat-form-field appearance="outline">
+      <mat-label>Matière</mat-label>
+      <mat-select [formControl]="matiere">
+        <mat-option *ngFor="let matiere of matieres" [value]="matiere._id">
+          <div style="display: flex; align-items: center">
+            <img
+              src="../../../assets/prof/{{ matiere.photoPass }}"
+              width="35px"
+              style="margin-right: 20px; border-radius: 20px"
+            />
+            <p>{{ matiere.name }}</p>
+          </div>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div style="text-align: center; padding: 10px">
+      <mat-label style="margin-bottom: 30px">Devoir rendu ?</mat-label><br />
+      <mat-radio-group
+        (change)="handleRenduChange()"
+        aria-label="Rendu"
+        color="primary"
+      >
+        <div
+          style="
+            display: flex;
+            justify-content: space-evenly;
+            margin-block: 20px;
+          "
+          *ngIf="rendu"
+        >
+          <mat-radio-button value="{{ true }}" checked="true"
+            >Oui</mat-radio-button
+          >
+          <mat-radio-button value="{{ false }}">Non</mat-radio-button>
+        </div>
+        <div
+          style="
+            display: flex;
+            justify-content: space-evenly;
+            margin-block: 20px;
+          "
+          *ngIf="!rendu"
+        >
+          <mat-radio-button value="{{ true }}">Oui</mat-radio-button>
+          <mat-radio-button value="{{ false }}" checked="true"
+            >Non</mat-radio-button
+          >
+        </div>
+      </mat-radio-group>
+    </div>
 
-      </mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+    <mat-form-field appearance="outline" *ngIf="rendu">
+      <mat-label>Note / 20</mat-label>
+      <mat-select [formControl]="note">
+        <mat-option *ngFor="let note of notes" [value]="note">
+          {{ note }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
-    <button mat-raised-button color="primary" [disabled]="((!nomAssignment) || (!dateRendu))">
-        Sauvegarder
-    </button>
+    <mat-form-field appearance="outline" class="field" *ngIf="rendu">
+      <mat-label>Remarques</mat-label>
+      <textarea matInput rows="3" [formControl]="this.remarques"></textarea>
+    </mat-form-field>
+    <div
+      style="display: flex; align-items: center; justify-content: space-evenly"
+    >
+      <button
+        mat-flat-button
+        (click)="handleSubmit()"
+        type="submit"
+        color="primary"
+        style="width: 150px; margin: auto; margin-top: 30px"
+      >
+        Modifier
+      </button>
+      <button
+        mat-flat-button
+        *ngIf="isAdmin()"
+        (click)="handleDeletion()"
+        type="submit"
+        color="warn"
+        style="width: 150px; margin: auto; margin-top: 30px"
+      >
+        Supprimer
+      </button>
+    </div>
+
+    <p
+      *ngIf="this.hasError"
+      style="font-size: 14px; color: red; text-align: center"
+    >
+      {{ this.errorText }}
+    </p>
   </form>
+</div>
+<div class="container" *ngIf="!this.isLogged()">
+  <h1 style="text-align: center; color: red">
+    Vous n'êtes pas autorisé à consulter cette page
+  </h1>
 </div>

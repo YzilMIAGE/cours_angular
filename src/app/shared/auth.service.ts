@@ -1,26 +1,50 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+export class User {
+  _id!: string;
+  lastName!: string;
+  firstName!: string;
+  mail!: string;
+}
+
+export class authUser {
+  user!: User;
+  token!: String;
+  role!: string;
+}
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   loggedIn = false;
+  admin = false;
+  uri = 'http://localhost:8010/api/users';
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
 
-  logIn() {
-    this.loggedIn = true;
+  register(iFormValues: object) {
+    return this.http.post<authUser>(this.uri + '/register', iFormValues);
   }
 
-  logOut() {
-    this.loggedIn = false;
+  logIn(iFormValues: object) {
+    return this.http.post<authUser>(this.uri + '/login', iFormValues);
+  }
+
+  setLogIn(iValue: boolean) {
+    this.loggedIn = iValue;
+  }
+
+  setAdmin(iValue: boolean) {
+    this.admin = iValue;
+  }
+
+  isLogged() {
+    return this.loggedIn;
   }
 
   isAdmin() {
-    const isUserAdmin = new Promise((resolve, reject) => {
-      resolve(this.loggedIn);
-    });
-
-    return isUserAdmin;
+    return this.admin;
   }
 }

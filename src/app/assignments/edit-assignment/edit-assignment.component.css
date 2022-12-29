@@ -1,11 +1,12 @@
-.form {
+.container {
+  padding: 10%;
   display: flex;
-  flex-direction: column;
-  margin: 5px;
+  justify-content: center;
 }
 
-.container {
-  margin: 20px;
+.form {
+  min-width: 380px;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
 }

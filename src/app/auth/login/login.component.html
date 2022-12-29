@@ -1,0 +1,65 @@
+<div class="container">
+  <form class="form">
+    <mat-icon
+      style="display: block; margin: auto; margin-bottom: 50px; color: blue"
+      >login</mat-icon
+    >
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Adresse mail</mat-label>
+      <input
+        type="email"
+        matInput
+        [formControl]="emailFormControl"
+        placeholder="Ex. johndoe@example.com"
+      />
+      <mat-error
+        *ngIf="
+          emailFormControl.hasError('email') &&
+          !emailFormControl.hasError('required')
+        "
+      >
+        Veuillez entrer une adresse mail valide
+      </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('required')">
+        Champs requis
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Mot de passe</mat-label>
+      <input
+        matInput
+        [type]="hide ? 'password' : 'text'"
+        [formControl]="passwordFormControl"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+      <mat-error
+        *ngIf="
+          passwordFormControl.hasError('pattern') &&
+          !passwordFormControl.hasError('required')
+        "
+      >
+        Minimum requis : 6 caractères | 1 majuscule | 1 minuscule | 1 chiffre
+      </mat-error>
+      <mat-error *ngIf="passwordFormControl.hasError('required')">
+        Champs requis
+      </mat-error>
+    </mat-form-field>
+    <button
+      mat-flat-button
+      (click)="handleSubmit()"
+      type="submit"
+      color="primary"
+      style="width: 150px; margin: 30px auto"
+    >
+      Connexion
+    </button>
+  </form>
+</div>

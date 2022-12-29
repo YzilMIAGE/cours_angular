@@ -15,28 +15,34 @@ import { AssignmentsComponent } from './assignments/assignments.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { AuthGuard } from './shared/auth.guard';
+// import { AuthGuard } from './shared/auth.guard';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 
 import { RenduDirective } from './shared/rendu.directive';
+import { NonRenduDirective } from './shared/nonRendu.directive';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
-import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
 import { RouterModule, Routes } from '@angular/router';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { DialogDetailComponent } from './assignments/dialog-detail/dialog-detail.component';
 
 const routes: Routes = [
   { path: '', component: AssignmentsComponent },
   { path: 'home', component: AssignmentsComponent },
   { path: 'add', component: AddAssignmentComponent },
-  { path: 'assignment/:id', component: AssignmentDetailComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   {
     path: 'assignment/:id/edit',
     component: EditAssignmentComponent,
-    canActivate: [AuthGuard],
   },
 ];
 
@@ -44,10 +50,13 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     AssignmentsComponent,
+    LoginComponent,
+    RegisterComponent,
     RenduDirective,
+    NonRenduDirective,
     AddAssignmentComponent,
-    AssignmentDetailComponent,
     EditAssignmentComponent,
+    DialogDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,13 +67,17 @@ const routes: Routes = [
     MatInputModule,
     MatFormFieldModule,
     FormsModule,
+    ReactiveFormsModule,
+    MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatToolbarModule,
     HttpClientModule,
     MatSidenavModule,
     MatPaginatorModule,
+    MatRadioModule,
     MatListModule,
+    MatSelectModule,
     MatCardModule,
     MatCheckboxModule,
     MatSlideToggleModule,
