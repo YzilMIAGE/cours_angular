@@ -14,7 +14,7 @@ export class User {
   providedIn: 'root',
 })
 export class UserService {
-//   uri = 'http://localhost:8010/api/users';
+  // uri = 'http://localhost:8010/api/users';
   uri = 'https://angular-back-rendu.herokuapp.com/api/users';
   constructor(private http: HttpClient) {}
 

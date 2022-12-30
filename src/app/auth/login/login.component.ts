@@ -34,8 +34,8 @@ export class LoginComponent implements OnInit {
         (data) => {
           console.log(data);
           localStorage.setItem('token', data.token.toString());
-          localStorage.setItem('userId', data.user._id);
-          if (data.role == 'admin') {
+          localStorage.setItem('userId', data.user._id.toString());
+          if (data.user.role == 'admin') {
             this.AuthService.setAdmin(true);
           } else {
             this.AuthService.setAdmin(false);

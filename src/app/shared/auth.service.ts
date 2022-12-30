@@ -1,17 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-export class User {
-  _id!: string;
-  lastName!: string;
-  firstName!: string;
-  mail!: string;
-}
+import { User } from './user.service';
 
 export class authUser {
   user!: User;
   token!: String;
-  role!: string;
 }
 
 @Injectable({

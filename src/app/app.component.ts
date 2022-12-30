@@ -9,7 +9,6 @@ import { UserService } from './shared/user.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  // Lien de l'appli https://front-cours-angular.herokuapp.com
   title = 'Application de gestion des devoirs à rendre (Assignments)';
   sideNavOpened = false;
 
